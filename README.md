@@ -1,4 +1,4 @@
-# N/A Discord Music Bot
+# Tsukky Music
 
 - บอทเพลงภาษาไทย
 - รองรับ Youtube , Spotify , Soundcloud
