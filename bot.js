@@ -36,14 +36,39 @@ ytpl('UU_aEa8K-EOJ3D6gOs7HcyNg').then(playlist => {
 
 client.distube = new Distube.default(client, {
     searchSongs: 1, 
+    leaveOnEmpty: false,
+    leaveOnFinish: false,
+    leaveOnStop: false,
+    emptyCooldown: 5000,
     emitNewSongOnly: true,
-    plugins: [new SpotifyPlugin(), new SoundCloudPlugin()],
+    emitAddListWhenCreatingQueue: true,
     emitAddSongWhenCreatingQueue: false,
-    leaveOnEmpty: true,
-    leaveOnFinish: true,
-    leaveOnStop: true,
-    emptyCooldown: 10
-});
+    youtubeDL: true,
+    updateYouTubeDL: true,
+    ytdlOptions: {
+        highWaterMark: 1 << 24,
+        quality: 'highestaudio'
+    },
+    customFilters: {
+        "bass": "bass=g=20,dynaudnorm=f=220",
+        '3D': "apulsator=hz=0.03",
+        "x1.5": "atempo=1.5",
+        "x1": "atempo=1",
+        "pitch": "asetrate=48000*1.25,aresample=48000,atempo=0.7",
+        "slowreverb": "atempo=0.85,aecho=1.0:0.5:10:0.5",
+        "double": "aecho=0.8:0.88:60:0.4",
+        "crystalizer" : "crystalizer=i=4",
+        "4D" : "apulsator=hz=0.04",
+        "8D" : "apulsator=hz=0.08",
+        "cursed": "vibrato=f=6.5,tremolo,aresample=48000,asetrate=48000*1.25",
+        "treble": "treble=g=5",
+        "vibrato": "vibrato=f=6.5",
+        "clear": "dynaudnorm=f=200",
+        "subboost": "asubboost",
+    },
+
+    plugins: [new SpotifyPlugin(), new SoundCloudPlugin()],
+})
 
 new SpotifyPlugin({
   parallel: true,
@@ -51,27 +76,32 @@ new SpotifyPlugin({
   api: {
     clientId: "73d6f4a38936476b8f126ec96b0267f7",
     clientSecret: "bbc5f4ef807e4790ad6bc552cee0bccd",
-  },
-});
-
-SoundCloudPlugin.search("A SoundCloud Track"); 
+  }
+})
 
 const scPlugin = new SoundCloudPlugin();
 scPlugin.search("A SoundCloud Playlist", "playlist", 3); 
 
 client.on("ready", () => {
-  console.log(`${client.user.username} Is Online`);
-  //client.user.setActivity(`n.help | Freedom` ,{type : "LISTENING"});
+  console.log(`${client.user.username} Is Online`); 
 
     let ourstatusarray = [
 
-    `n,help | วันฮาโลวีนหรอ ว้าวซ่า`,
-    `n,help | ใครไม่หล่อเท่ แต่เราหล่อเท่นะ`,
+    `ดนตรีมันอยู่ในจิตวิญญาณ โจ๊ะพึมๆ`,
+    `n,help | คนคูลคือเราเอง`,
     `No God, No King, Only Human!`,
+    `คนเขียนบอทโคตรหล่อเท่`,
+    `n.help | อยากเป็นคนรวย`,
+    `มาฟังเพลงที่ห้องเรามั้ย`,
+    `n,help | ห้องเรามีแมวนะ`,
+    `มูฟออนเถอะครับ เขาไม่กลับมาแล้ว`,
+    `หนาวนี้กอดใคร.. หนาวก็ห่มผ้านะ`,
+    `n,help | #ยกเลิก 112`,
+    `สนับสนุนบอท n,donate`,
 
   ]
   setInterval(() => {
-      client.user.setActivity(`${ourstatusarray[Math.floor(Math.random()  * ourstatusarray.length)]}`, {type: "LISTENING"})
+      client.user.setActivity(`${ourstatusarray[Math.floor(Math.random()  * ourstatusarray.length)]}`, {type: 5})
   }, 5000);
 
 })
